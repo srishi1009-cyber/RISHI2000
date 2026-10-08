@@ -1,19 +1,17 @@
-const CACHE_NAME = "rishi-music-v7";
+const CACHE_NAME = "rishi-music-v8";
 
 const APP_FILES = [
   "./",
   "./index.html",
   "./style.css",
   "./app.js",
-  "./manifest.json",
-  "./icon-192.png",
-  "./icon-512.png"
+  "./manifest.json"
 ];
 
 
-// ================================
+// ========================================
 // INSTALL
-// ================================
+// ========================================
 
 self.addEventListener("install", function (event) {
 
@@ -30,29 +28,31 @@ self.addEventListener("install", function (event) {
             return fetch(file, {
               cache: "no-store"
             })
-              .then(function (response) {
 
-                if (!response.ok) {
-                  throw new Error(
-                    "Could not cache: " + file
-                  );
-                }
+            .then(function (response) {
 
-                return cache.put(
-                  file,
-                  response
+              if (!response.ok) {
+                throw new Error(
+                  "Failed to cache " + file
                 );
+              }
 
-              })
-              .catch(function (error) {
+              return cache.put(
+                file,
+                response
+              );
 
-                console.warn(
-                  "Cache skipped:",
-                  file,
-                  error
-                );
+            })
 
-              });
+            .catch(function (error) {
+
+              console.warn(
+                "Could not cache:",
+                file,
+                error
+              );
+
+            });
 
           })
 
@@ -71,9 +71,9 @@ self.addEventListener("install", function (event) {
 });
 
 
-// ================================
+// ========================================
 // ACTIVATE
-// ================================
+// ========================================
 
 self.addEventListener("activate", function (event) {
 
@@ -96,6 +96,8 @@ self.addEventListener("activate", function (event) {
 
             }
 
+            return null;
+
           })
 
         );
@@ -113,32 +115,31 @@ self.addEventListener("activate", function (event) {
 });
 
 
-// ================================
+// ========================================
 // FETCH
-// ================================
+// ========================================
 
 self.addEventListener("fetch", function (event) {
 
   const request = event.request;
 
-  // Only GET requests
   if (request.method !== "GET") {
     return;
   }
 
-  // Ignore blob audio URLs
+
   if (request.url.startsWith("blob:")) {
     return;
   }
 
+
   const url = new URL(request.url);
 
-  // Only handle this GitHub Pages app
-  if (
-    url.origin !== self.location.origin
-  ) {
+
+  if (url.origin !== self.location.origin) {
     return;
   }
+
 
   event.respondWith(
 
@@ -146,17 +147,25 @@ self.addEventListener("fetch", function (event) {
 
       .then(function (response) {
 
-        // Update cached app files
-        if (response && response.ok) {
+        if (
+          response &&
+          response.ok &&
+          request.url.includes("/RISHI2000/")
+        ) {
 
           const copy = response.clone();
 
           caches.open(CACHE_NAME)
+
             .then(function (cache) {
 
-              cache.put(request, copy);
+              cache.put(
+                request,
+                copy
+              );
 
             })
+
             .catch(function () {});
 
         }
@@ -175,7 +184,9 @@ self.addEventListener("fetch", function (event) {
               return cached;
             }
 
-            return caches.match("./index.html");
+            return caches.match(
+              "./index.html"
+            );
 
           });
 
