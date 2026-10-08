@@ -2,13 +2,18 @@
   "name": "Rishi Music",
   "short_name": "Rishi Music",
   "description": "Personal offline music player",
+
   "id": "/RISHI2000/",
+
   "start_url": "/RISHI2000/",
   "scope": "/RISHI2000/",
+
   "display": "standalone",
   "orientation": "portrait",
+
   "theme_color": "#071a3d",
   "background_color": "#020713",
+
   "icons": [
     {
       "src": "/RISHI2000/icon-192.png",
