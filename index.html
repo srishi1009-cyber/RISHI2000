@@ -20,9 +20,15 @@
     content="Rishi Music - offline personal music player"
   >
 
-  <meta name="mobile-web-app-capable" content="yes">
+  <meta
+    name="mobile-web-app-capable"
+    content="yes"
+  >
 
-  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta
+    name="apple-mobile-web-app-capable"
+    content="yes"
+  >
 
   <meta
     name="apple-mobile-web-app-status-bar-style"
@@ -53,9 +59,6 @@
 
   <div class="app-shell">
 
-
-    <!-- SIDEBAR -->
-
     <aside class="sidebar">
 
       <div class="brand">
@@ -65,19 +68,12 @@
         </div>
 
         <div>
-
           <h1>RISHI MUSIC</h1>
-
-          <p>
-            Offline Music Station
-          </p>
-
+          <p>Offline Music Station</p>
         </div>
 
       </div>
 
-
-      <!-- IMPORT -->
 
       <label class="import-button">
 
@@ -95,8 +91,6 @@
       </label>
 
 
-      <!-- ALL SONGS -->
-
       <button
         id="allModeBtn"
         class="side-button active"
@@ -105,11 +99,10 @@
       </button>
 
 
-      <!-- DIRECTOR -->
-
       <div class="filter-title">
         MUSIC DIRECTOR
       </div>
+
 
       <select
         id="directorFilter"
@@ -122,8 +115,6 @@
 
       </select>
 
-
-      <!-- STORAGE INFO -->
 
       <div class="library-info">
 
@@ -139,8 +130,6 @@
 
     </aside>
 
-
-    <!-- MAIN -->
 
     <main class="main">
 
@@ -159,8 +148,6 @@
         </div>
 
 
-        <!-- SEARCH -->
-
         <input
           id="searchInput"
           class="search"
@@ -171,8 +158,6 @@
       </header>
 
 
-      <!-- TODAY INFO -->
-
       <div
         id="todayInfo"
         class="today-info"
@@ -181,8 +166,6 @@
       </div>
 
 
-      <!-- SONG LIST -->
-
       <section
         id="songListContainer"
         class="song-list"
@@ -190,8 +173,6 @@
 
     </main>
 
-
-    <!-- PLAYER -->
 
     <section class="player">
 
@@ -215,8 +196,6 @@
 
       </div>
 
-
-      <!-- CONTROLS -->
 
       <div class="player-controls">
 
@@ -247,8 +226,6 @@
       </div>
 
 
-      <!-- PROGRESS -->
-
       <div class="timeline">
 
         <span id="currentTime">
@@ -275,8 +252,6 @@
   </div>
 
 
-  <!-- AUDIO ENGINE -->
-
   <audio
     id="audioEngine"
     preload="auto"
@@ -287,8 +262,6 @@
   <script src="./app.js"></script>
 
 
-  <!-- SERVICE WORKER REGISTRATION -->
-
   <script>
 
     if ("serviceWorker" in navigator) {
@@ -298,18 +271,20 @@
         navigator.serviceWorker.register("./sw.js", {
           scope: "./"
         })
+
         .then(function (registration) {
 
           console.log(
-            "Rishi Music Service Worker registered:",
+            "Rishi Music service worker registered:",
             registration.scope
           );
 
         })
+
         .catch(function (error) {
 
           console.error(
-            "Rishi Music Service Worker registration failed:",
+            "Rishi Music service worker registration failed:",
             error
           );
 
